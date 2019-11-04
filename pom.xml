@@ -35,10 +35,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- 热部署依赖       -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional> <!-- 这个需要为 true 热部署才有效 -->
+            <scope>true</scope>
         </dependency>
         <!-- servlet依赖. -->
         <dependency>
@@ -63,6 +65,12 @@
             <scope>test</scope>
         </dependency>
 
+        <!--mysql数据库驱动-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
         <!-- Spring Data JPA 依赖 :: 数据持久层框架 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -77,10 +85,16 @@
         </dependency>
 
         <!-- 模板引擎 Thymeleaf 依赖 -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-thymeleaf</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!--引入AOP相应的注解-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
 
     </dependencies>
 
@@ -89,6 +103,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
             </plugin>
         </plugins>
     </build>
