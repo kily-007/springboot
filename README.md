@@ -1,5 +1,6 @@
 # springboot
  用户登录注册
+ 
 controller:控制器层，导入service层，调用service方法；通过接受前端传过来的参数进行业务操作，再返回一个指定的路径或数据表
 
 bean/entity/model:实体类，映射数据库中的字段
