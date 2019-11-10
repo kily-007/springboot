@@ -1,116 +1,115 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>注册</title>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<!--    <link rel="stylesheet" href="bootstrap-colorpicker/css/bootstrap-colorpicker.css">-->
-<!--    <link rel="stylesheet" href="bootstrap-datepicker/css/bootstrap-datetimepicker.min.css">-->
-    <style type="text/css">
-        .main-box {
-            width: 640px;
-            margin: 40px auto;
-            position: center;
-            margin-top: 10%;
-        }
-    </style>
-
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
+<body>
 
-<body style="background: url(../images/bg1.jpg) no-repeat 0px 0px;color: #3faa53;">
-<div class="main-box">
-    <form action="/register" method="post">
-        <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label" autocomplete="off">用户名</label>
-            <div class="col-sm-10">
-                <input type="text" name="userName" class="form-control" id="name" placeholder="请输入用户名">
-            </div>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>注册</legend>
+</fieldset>
+
+<form class="layui-form" action="/register" method="post" lay-filter="example">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label><font style="color:red">*</font>
+        <div class="layui-input-inline">
+            <input type="text" name="username" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="请输入用户名" autocomplete="off" class="layui-input">
         </div>
-
-        <div class="form-group row">
-            <label for="pwd" class="col-sm-2 col-form-label">密码</label>
-            <div class="col-sm-10">
-                <input type="password" name="passWord" class="form-control" id="pwd" placeholder="请输入密码">
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label><font style="color:red">*</font>
+        <div class="layui-input-inline">
+            <input type="password" name="password" lay-verify="required" lay-reqtext="密码不能为空" placeholder="请输入密码" autocomplete="off" class="layui-input">
         </div>
-
-        <div class="form-group row">
-            <label for="pwd2" class="col-sm-2 col-form-label">确认密码</label>
-            <div class="col-sm-10">
-                <input type="password" name="passWord2" class="form-control" id="pwd2" placeholder="请输入确认密码">
-            </div>
+        <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">确认密码</label><font style="color:red">*</font>
+        <div class="layui-input-inline">
+            <input type="password" name="password2" lay-verify="required" lay-reqtext="请确认密码" placeholder="请确认密码" autocomplete="off" class="layui-input">
         </div>
+        <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
+    </div>
 
-
-        <fieldset class="form-group">
-            <div class="row">
-                <legend class="col-form-label col-sm-2 pt-0">性别</legend>
-                <div class="col-sm-10">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="sex" id="inlineRadio1" value="男"
-                               checked="true">
-                        <label class="form-check-label" for="inlineRadio1">男</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="sex" id="inlineRadio2" value="女">
-                        <label class="form-check-label" for="inlineRadio2">女</label>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-
-        <div class="form-group row">
-            <label for="age" class="col-sm-2 col-form-label">年龄</label>
-            <div class="col-sm-10">
-                <input type="text" name="age" class="form-control" id="age" placeholder="请输入年龄">
-            </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">单选框</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="男" title="男" checked="true">
+            <input type="radio" name="sex" value="女" title="女">
         </div>
+    </div>
 
-        <div class="form-group row">
-            <label for="phone" class="col-sm-2 col-form-label">手机号</label>
-            <div class="col-sm-10">
-                <input type="text" name="phone" class="form-control" id="phone" placeholder="请输入手机号">
-            </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">电话</label>
+        <div class="layui-input-inline">
+            <input type="tel" name="phone"  autocomplete="off" class="layui-input">
         </div>
-
-        <div class="form-group row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-10">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                        同意服务条款
-                    </label>
-                    <i style="color:red;" th:text="${message}"></i>
-                </div>
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-inline">
+            <input type="text" name="email" autocomplete="off" class="layui-input">
+<!--          验证邮箱  lay-verify="email"-->
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">工作单位</label>
+        <div class="layui-input-inline">
+            <input type="text" name="employer" lay-verify="employer" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-inline" style="width: 500px">
+            <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">注册</button>
+            <button type="button" class="layui-btn layui-btn-normal" id="LAY-component-form-setval">赋值</button>
+            <button type="button" class="layui-btn" id="btn_back">返回登录</button>
+<!--            <button type="button" class="layui-btn layui-btn-normal" id="LAY-component-form-getval">取值</button>-->
 
         </div>
-        <div class="form-group row">
-            <div class="col-sm-10">
-                <button type="submit" name="btn" value="注册" class="btn btn-primary">注册</button>
-                <button type="submit" name="btn" value="取消" id="btn_cancel" class="btn">返回登录</button>
-            </div>
-        </div>
+    </div>
 
-    </form>
-</div>
+</form>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+<script src="./layui/layui.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use(['form'], function(){
+        var form = layui.form
+            ,layer = layui.layer;
+
+        document.getElementById("btn_back").onclick=function (ev) {
+            window.location.href="/login";
+        }
+
+        //表单赋值
+        layui.$('#LAY-component-form-setval').on('click', function(){
+            form.val('example', {
+                "username": "mrchen"
+                ,"password": "123"
+                ,"password2": "123"
+                ,"sex": "男"
+                ,"phone": "15272561671"
+                ,"email": "1286759467@qq.com"
+                ,"employer": "武汉理工"
+                ,"remarks": ""
+            });
+        });
+
+    });
+    form.render();     //更新全部
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-</script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-</script>
-<!--<script src="bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>-->
-<!--<script src="bootstrap-datepicker/js/bootstrap-datetimepicker.min.js"></script>-->
 
 </body>
-
 </html>

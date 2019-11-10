@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 
 @Controller
@@ -16,54 +19,42 @@ public class RegisterController {
     private RegisterService registerService;
 
     @GetMapping("/register")
-    public String register(){
+    public String register() {
         return "register";
     }
 
     @PostMapping("/register")
-    public String register(String btn,String userName, String passWord, String passWord2, String sex, String age, String phone, Map<String,Object> map){
-        if(btn.equals("注册")) {
-            String message;
-            if (userName == null || userName.equals("")) {
-                message = "用户名不能为空";
-                map.put("message", message);
-                return "register";
-            } else if (passWord == null || passWord.equals("")) {
-                message = "密码不能为空";
-                map.put("message", message);
-                return "register";
-            } else if (passWord2 == null || passWord2.equals("")) {
-                message = "请确认密码";
-                map.put("message", message);
-                return "register";
-            } else if (age == null || age.equals("")) {
-                message = "年龄不能为空不能为空";
-                map.put("message", message);
-                return "register";
-            } else if (phone == null || phone.equals("")) {
-                message = "电话不能为空不能为空";
-                map.put("message", message);
-                return "register";
-            } else if (!passWord.equals(passWord2)) {
-                map.put("ms", "两次密码不一致");
-                return "register";
+    public String register(String username, String password, String password2, String sex, String phone, String email,
+                           String employer, String remarks, Map<String, Object> map, HttpServletResponse response) throws IOException {
+        if (!password.equals(password2)) {
+            map.put("ms", "两次密码不一致");
+            return "register";
+        } else {
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setSex(sex);
+            user.setPhone(phone);
+            user.setEmail(email);
+            user.setEmployer(employer);
+            user.setRemarks(remarks);
+            PrintWriter out = response.getWriter();
+            if (registerService.register(user)) {
+                out.print("<script language=\"javascript\";charset=\"utf-8\">alert('register succeed!');window.location.href='/login'</script>");
+                System.out.println("注册成功");
+                return null;
             } else {
-                User user = new User();
-                user.setUsername(userName);
-                user.setPassword(passWord);
-                user.setSex(sex);
-                user.setPhone(phone);
-                if (registerService.register(user)) {
-                    map.put("message", "注册成功,请返回登录");
-                    return "register";
-                } else {
-                    map.put("message", "注册失败");
-                    return "register";
-                }
+                out.print("<script language=\"javascript\";charset=\"utf-8\">alert('register failure! username existed ');window.location.href='register'</script>");
+                System.out.println("注册失败,该用户名已注册。");
+                return null;
             }
-        }else if(btn.equals("取消")){
-            return "login";
+
         }
-        return null;
     }
+
+
+
+
+
 }
+

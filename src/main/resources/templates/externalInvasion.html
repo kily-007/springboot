@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>实时异常</title>
+    <link rel="stylesheet" type="text/css" href="css/1.css">
+    <link rel="stylesheet" type="text/css" href="css/table.css" />
+    <!-- echarts插件的js -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+    <!-- echarts插件的js -->
+    <script src="js/echarts.js"></script>
+    <script src="js/less.min.js"></script>
+    <script type="text/javascript" src="js/3.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="js/1.js"></script>
+</head>
+
+<body>
+<h1 style="color: black; text-align: center; height: 18px; line-height: 18px; font-size: 20px">实时异常</h1>
+<div id="backgroundJpg">
+    <div id="firstDiv">
+        <div id="t0" class="track"></div>
+        <div id="t1" class="track"></div>
+        <div id="t2" class="track"></div>
+        <div id="t3" class="track"></div>
+        <div id="t4" class="track"></div>
+        <div id="t5" class="track"></div>
+        <div id="t6" class="track"></div>
+        <div id="t7" class="track"></div>
+        <div id="t8" class="track"></div>
+        <div id="t9" class="track"></div>
+        <div id="t10" class="track"></div>
+        <div id="t11" class="track"></div>
+        <div id="t12" class="track"></div>
+        <div id="t13" class="track"></div>
+        <div id="t14" class="track"></div>
+        <div id="t15" class="track"></div>
+        <div id="t16" class="track"></div>
+        <div id="t17" class="track"></div>
+        <div id="t18" class="track"></div>
+        <div id="t19" class="track"></div>
+        <div id="t20" class="track"></div>
+        <div id="t21" class="track"></div>
+        <div id="t22" class="track"></div>
+        <div id="t23" class="track"></div>
+        <div id="t24" class="track"></div>
+        <div id="t25" class="track"></div>
+        <div id="t26" class="track"></div>
+    </div>
+    <div id="secondDiv">
+        <div id="w0" class="wall"></div>
+        <div id="w1" class="wall"></div>
+        <div id="w2" class="wall"></div>
+        <div id="w3" class="wall"></div>
+        <div id="w4" class="wall"></div>
+        <div id="w5" class="wall"></div>
+        <div id="w6" class="wall"></div>
+        <div id="w7" class="wall"></div>
+        <div id="w8" class="wall"></div>
+        <div id="w9" class="wall"></div>
+        <div id="w10" class="wall"></div>
+        <div id="w11" class="wall"></div>
+        <div id="w12" class="wall"></div>
+        <div id="w13" class="wall"></div>
+        <div id="w14" class="wall"></div>
+        <div id="w15" class="wall"></div>
+        <div id="w16" class="wall"></div>
+        <div id="w17" class="wall"></div>
+        <div id="w18" class="wall"></div>
+        <div id="w19" class="wall"></div>
+        <div id="w20" class="wall"></div>
+        <div id="w21" class="wall"></div>
+        <div id="w22" class="wall"></div>
+        <div id="w23" class="wall"></div>
+        <div id="w24" class="wall"></div>
+        <div id="w25" class="wall"></div>
+        <div id="w26" class="wall"></div>
+        <div id="w27" class="wall"></div>
+        <div id="w28" class="wall"></div>
+        <div id="w29" class="wall"></div>
+        <div id="w30" class="wall"></div>
+        <div id="w31" class="wall"></div>
+        <div id="w32" class="wall"></div>
+    </div>
+</div>
+<div style="width: 19%; height: 315px; margin: 5px;display: inline-block;">
+    <table class="zebra" style="width: 100%;height: 100%;">
+        <tbody>
+        <th colspan="2">设备信息</th>
+        <tr>
+            <td>通道数量</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>光栅数量</td>
+            <td>4000</td>
+        </tr>
+        <tr>
+            <td>采集带宽</td>
+            <td>16M/s</td>
+        </tr>
+        <tr>
+            <td>仪表温度</td>
+            <td>23°</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div id="container" style="padding: 0;margin: 5px;width: 60%;display: inline-block;">
+    <table class="zebra" style="width: 100%;">
+        <tbody>
+        <tr>
+            <th colspan="3">内外部报警记录</th>
+        </tr>
+        <tr>
+            <td>入侵区号</td>
+            <td>入侵时间</td>
+            <td>入侵种类</td>
+        </tr>
+        <tr>
+            <td>505区</td>
+            <td>2019-06-20 11:18:56</td>
+            <td>内部入侵</td>
+        </tr>
+        <tr>
+            <td>383区</td>
+            <td>2019-06-20 19:26:54</td>
+            <td>内部入侵</td>
+        </tr>
+        <tr>
+            <td>166区</td>
+            <td>2019-06-21 04:24:36</td>
+            <td>外部入侵</td>
+        </tr>
+        <tr>
+            <td>267区</td>
+            <td>2019-06-21 10:48:55</td>
+            <td>外部入侵</td>
+        </tr>
+        <tr>
+            <td>173区</td>
+            <td>2019-06-21 15:35:42</td>
+            <td>内部入侵</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div id="Abnormal_statistics" style="width: 19%; height: 313px; border: solid black 1px; margin: 5px; display: inline-block; position: absolute;">
+</div>
+<div align="right">
+    <input type="button" onclick="add()" value="">
+</div>
+</body>
+</html>

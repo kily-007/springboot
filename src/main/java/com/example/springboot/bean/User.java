@@ -9,7 +9,7 @@ public class User {
 
   @Id
   @Column
-  private long id;
+  private String id;
   @Column
   private String username;
   @Column
@@ -18,13 +18,19 @@ public class User {
   private String sex;
   @Column
   private String phone;
+  @Column
+  private String email;
+  @Column
+  private String employer;
+  @Column
+  private String remarks;
 
 
-  public long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -66,8 +72,31 @@ public class User {
 
   public String toString(){
     StringBuilder str=new StringBuilder();
-    str.append(id).append(username).append(password).append(sex).append(phone);
+    str.append(id).append(username).append(password).append(sex).append(phone).append(email);
     return str.toString();
   }
 
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getEmployer() {
+    return employer;
+  }
+
+  public void setEmployer(String employer) {
+    this.employer = employer;
+  }
+
+  public String getRemarks() {
+    return remarks;
+  }
+
+  public void setRemarks(String remarks) {
+    this.remarks = remarks;
+  }
 }
