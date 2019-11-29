@@ -1,10 +1,207 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>参数初始化</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="./css/tableMeter.css"  >
 </head>
 <body>
-仪表初始化
+<form class="layui-form" action="">
+    <div style="padding: 10px; background-color: #F2F2F2;">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">初始化仪表</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+                    </div>
+                </div>
+
+                <div class="layui-card-header" style="left: 45%;font-size: 16px;"><h4>仪表状态实时显示</h4></div>
+                <div class="layui-card-body">
+                    <table class="tableMeter">
+                        <thead>
+                        <tr>
+                            <th>&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                            <th>仪表编号</th>
+                            <th>温度<br/>(单位：℃)</th>
+                            <th>运行时长<br/>(单位：h)</th>
+                            <th>采集频率<br/>(单位：HZ)</th>
+                            <th>数据流量<br/>(单位：M)</th>
+                            <th>&nbsp;&nbsp;&nbsp;&nbsp;备注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                            <th>状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="meter:${meters}">
+                            <td th:text="${meter.id}"></td>
+                            <td th:text="${meter.number}"></td>
+                            <td th:text="${meter.temperature}"></td>
+                            <td th:text="${meter.time}"></td>
+                            <td th:text="${meter.frequency}"></td>
+                            <td th:text="${meter.flow}"></td>
+                            <td th:text="${meter.remarks}"></td>
+                            <td style="width: 15%">
+                                 <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="运行|停止">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-inline layui-card-header">
+                        <label class="layui-form-label">仪表参数：</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-verify="required" lay-search="">
+                                <option value="1">01号仪表</option>
+                                <option value="2">02号仪表</option>
+                                <option value="3">03号仪表</option>
+                                <option value="4">04号仪表</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="" style="margin-top: 15px">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">所在地：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" placeholder="湖工站"  autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">采集频率：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" placeholder="1000HZ"  autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="" style="margin-top: 13px">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">数据帧：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" placeholder="100帧"  autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">采集点数：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" placeholder="527"  autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="" style="margin-top: 13px">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">数据包：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" placeholder="200x527"  autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">数据类型：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" placeholder="float"  autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-inline layui-card-header">
+                        <label class="layui-form-label">通道参数：</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-verify="required" lay-search="">
+                                <option value="">00号通道</option>
+                                <option value="1">01号通道</option>
+                                <option value="2">02号通道</option>
+                                <option value="3">03号通道</option>
+                                <option value="4">04号通道</option>
+                                <option value="5">05号通道</option>
+                                <option value="6">06号通道</option>
+                                <option value="7">07号通道</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="" style="margin-top: 15px">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">通道数：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" placeholder="4"  autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">采集频率：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" placeholder="1000HZ"  autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="" style="margin-top: 13px">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">数据帧：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" placeholder="100帧"  autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">采集点数：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" placeholder="527"  autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="" style="margin-top: 13px">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">数据包：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" placeholder="200x527"  autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">数据类型：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" placeholder="float"  autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-header">备注</div>
+                    <div class="layui-card-body">
+                        无
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<script src="./layui/layui.js"></script>
+<script>
+    layui.use('form', function(){
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+
+        //……
+
+        //但是，如果你的HTML是动态生成的，自动渲染就会失效
+        //因此你需要在相应的地方，执行下述方法来进行渲染
+        form.render();
+    });
+</script>
 </body>
 </html>

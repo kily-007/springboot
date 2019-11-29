@@ -1,0 +1,37 @@
+table.tabledata {
+    margin-top:15px;
+    border-collapse:collapse;
+    border:1px solid #aaa;
+    width:100%;
+}
+
+table.tabledata th {
+    vertical-align:baseline;
+    padding:5px 15px 5px 6px;
+    background-color:#3F3F3F;
+    border:1px solid #3F3F3F;
+    text-align:left;
+    color:#fff;
+}
+
+table.tabledata td {
+    vertical-align:text-top;
+    padding:6px 15px 6px 6px;
+    border:1px solid #aaa;
+}
+
+table.tabledata tr:nth-child(odd) {
+    background-color:#F5F5F5;
+}
+
+table.tabledata tr:nth-child(even) {
+    background-color:#fff;
+}
+#page {
+    width: 100%;
+    text-align: right;
+    padding-bottom: 6px;
+    padding-top: 6px;
+    border:1px solid #aaa;
+    background: #F5F5F5;
+}

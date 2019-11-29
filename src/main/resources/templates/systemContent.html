@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <meta charset="UTF-8">
+    <title>监测内容</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+</head>
+<body>
+
+<h2 style="margin-left: 44%">监测内容</h2>
+<div style="height:23px;width:95%;border: 2px solid #84C7CE;margin-left: 20px;margin-top: 10px;padding: 10px 10px;">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本地铁监测系统分为地铁列车行车监测、地铁轨道结构监测、外/内部入侵安全监测三个大的模块。
+</div>
+
+
+<div style="padding: 15px; background-color: #F2F2F2;margin-top: 30px">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header"><h3 style="color: #008080">系统介绍</h3></div>
+                <div class="layui-card-body">
+                    <i style="color: #2F4F4F">仪表监测：</i>
+                    采集仪表数据，对仪表温度、运行时长、采集频率、数据流量等各个方面进行实时监测，保证系统数据可靠性。
+                </div>
+                <div class="layui-card-body">
+                    <i style="color: #2F4F4F">地铁列车行车监测：</i>
+                    采用分布式光栅阵列沿地铁轨道和洞壁同步铺设，实时采集地铁运行时的振动数据，通过对数据的实时分析，得出列车此时的运行状态，包括速度和位置信息等。
+                </div>
+                <div class="layui-card-body">
+                    <i style="color: #2F4F4F">轨道结构监测：</i>
+                    通过对采集的轨道振动数据实时处理，分析轨道的结构健康安全，并统计长期特征值趋势，分析随着时间的延长列车运行时轨道的变化。
+                </div>
+                <div class="layui-card-body">
+                    <i style="color: #2F4F4F">内/外部入侵监测：</i>
+                    通过对隧道中传来的振动数据分析，对振动源快速定位，找到振动源相对于隧道的距离，对地铁运行产生影响的外部因素立即预警。
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

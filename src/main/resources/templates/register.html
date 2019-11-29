@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
     <legend>注册</legend>
 </fieldset>
 
@@ -59,6 +59,12 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">角色</label>
+        <div class="layui-input-inline">
+            <input type="text" name="role" lay-verify="role" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">工作单位</label>
         <div class="layui-input-inline">
             <input type="text" name="employer" lay-verify="employer" autocomplete="off" class="layui-input">
@@ -102,6 +108,7 @@
                 ,"sex": "男"
                 ,"phone": "15272561671"
                 ,"email": "1286759467@qq.com"
+                ,"role": "武汉理工"
                 ,"employer": "武汉理工"
                 ,"remarks": ""
             });

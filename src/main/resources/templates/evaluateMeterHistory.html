@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>评估历史</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./css/table.css" >
+    <link rel="stylesheet" href="./css/search.css" >
+    <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
+
+</head>
+<body>
+<form class="layui-form" action="">
+
+    <table class="choose" style="margin: 2px auto">
+        <tbody>
+        <tr style="height: 30px">
+            <td align="center">
+                <div class="layui-inline">
+                    <label class="layui-form-label">曲线分析</label>
+                    <div class="layui-input-inline">
+                        <select name="modules" lay-verify="required" lay-search="">
+                            <option value="">灵敏度参数</option>
+                            <option value="1">灵敏度参数</option>
+                            <option value="2">有效数据率</option>
+                            <option value="3">整体评价</option>
+                        </select>
+                    </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                按时间查询: <input type="text" id="start" name="date" class="Wdate" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})"value=""> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                按关键字查询: <input type="text" id="end" name="date" class="Wdate" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})"value=""> &nbsp;&nbsp;
+                <div class="clean-button" onclick="check_data()">
+                    <span class="text">查询</span>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+<!--    曲线图-->
+<div id="main" style="width: 100%;height:270px;"></div>
+
+<table class="tabledata" style="margin-top: 30px">
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>仪表评估时间</th>
+        <th>仪表评估报表</th>
+        <th>报表文件大小</th>
+        <th>评估灵敏度</th>
+        <th>评估有效数据率</th>
+        <th>整体评价</th>
+        <th>备注</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="meterEvaluate:${meterEvaluates}" style="height: 28px;">
+        <td th:text="${meterEvaluate.id}"></td>
+        <td th:text="${meterEvaluate.time}"></td>
+        <td th:text="${meterEvaluate.file}"></td>
+        <td th:text="${meterEvaluate.size}"></td>
+        <td th:text="${meterEvaluate.sensitivity}"></td>
+        <td th:text="${meterEvaluate.effect}"></td>
+        <td th:text="${meterEvaluate.evaluate}"></td>
+        <td th:text="${meterEvaluate.remarks}"></td>
+        <td style="width: 15%">
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" style="height: 26px"><i class="layui-icon"></i> 删除</button>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" style="height: 26px"><i class="layui-icon"></i> 下载</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</form>
+<script type="text/javascript" src="./js/echarts.js"></script>
+<script type="text/javascript" src="./js/evaluateMeterHistory.js"></script>
+<script type="text/javascript" src="./layui/layui.js"></script>
+<script>
+    layui.use('form', function(){
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+
+        //……
+
+        //但是，如果你的HTML是动态生成的，自动渲染就会失效
+        //因此你需要在相应的地方，执行下述方法来进行渲染
+        form.render();
+    });
+</script>
+</body>
+</html>

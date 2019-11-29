@@ -1,10 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>数据加载管理</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <link rel="stylesheet" href="./css/invasionHistory.css"  >
+    <style type="text/css">
+        .tabledata tr{
+            height: 45px;
+        }
+    </style>
 </head>
 <body>
+<div class="layui-layout layui-layout-admin">
+<h2 style="margin-left: 44%">数据加载管理</h2>
+<!--<table class="layui-hide" id="info" lay-filter="demo"></table>-->
+<!--<script type="text/html" id="barDemo">-->
+<!--    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
+<!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
+<!--</script>-->
+
+    <table class="tabledata" style="width: 100%;margin-top: 30px">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>所属模块</th>
+            <th>功能</th>
+            <th>监测类型</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>数据粒度</th>
+            <th>是否加载</th>
+            <th>备注</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dataLoad:${dataLoads}">
+            <td th:text="${dataLoad.id}"></td>
+            <td th:text="${dataLoad.module}"></td>
+            <td th:text="${dataLoad.panel}"></td>
+            <td th:text="${dataLoad.type}"></td>
+            <td th:text="${dataLoad.startTime}"></td>
+            <td th:text="${dataLoad.endTime}"></td>
+            <td th:text="${dataLoad.dataGrain}"></td>
+            <td th:text="${dataLoad.isLoad}"></td>
+            <td th:text="${dataLoad.remarks}"></td>
+            <td>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" style="height: 30px;width: 70px"><i class="layui-icon"></i> 编辑</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div id="page">
+        第&nbsp;<i th:text="${currentPage+1}"></i>&nbsp;页，
+        共&nbsp;<i th:text="${totalPages}"></i>&nbsp;页，
+        每页&nbsp;<i th:text="${limitPage}"></i>&nbsp;条数据，
+        共&nbsp;<i th:text="${totalCount}"></i>&nbsp;条数据&nbsp;&nbsp;&nbsp;
+
+        <a th:href="@{/dataLoadManage(page=0,totalPage=${totalPages})}">首页</a>&nbsp;
+        <a th:href="@{/dataLoadManage(page=${currentPage-1},totalPage=${totalPages})}">上一页</a>&nbsp;
+        <a th:href="@{/dataLoadManage(page=${currentPage+1},totalPage=${totalPages})}">下一页</a>&nbsp;
+        <a th:href="@{/dataLoadManage(page=${totalPages-1},totalPage=${totalPages})}">末页</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+
+</div>
+
+<!--<script>-->
+<!--    layui.use(['element','table'], function(){-->
+<!--        var element = layui.element;-->
+<!--        var table = layui.table;-->
+<!--        //监听工具条-->
+<!--        table.on('tool(demo)', function(obj){-->
+<!--            var data = obj.data;-->
+<!--            if(obj.event === 'detail'){-->
+<!--                layer.msg('ID：'+ data.id + ' 的查看操作');-->
+<!--            } else if(obj.event === 'del'){-->
+<!--                layer.confirm('真的删除行么', function(index){-->
+<!--                    obj.del();-->
+<!--                    layer.close(index);-->
+<!--                });-->
+<!--            } else if(obj.event === 'edit'){-->
+<!--                layer.alert('编辑行：<br>'+ JSON.stringify(data))-->
+<!--            }-->
+<!--        });-->
+
+<!--        table.render({-->
+<!--            elem: '#info'-->
+<!--            ,url: '/dataLoadManage'-->
+<!--            ,cols: [-->
+<!--                [-->
+<!--                    {field: 'id', width: 90, title: 'id'}-->
+<!--                    ,{field: 'module', width: 120, title: '所属模块'}-->
+<!--                    ,{field: 'panel', width: 120, title: '功能'}-->
+<!--                    ,{field: 'type', width: 150, title: '监测类型'}-->
+<!--                    ,{field: 'startTime', width: 200, title: '开始时间'}-->
+<!--                    ,{field: 'endTime', width: 200, title: '结束时间'}-->
+<!--                    ,{field: 'dataGrain',  width: 100,title: '数据粒度'}-->
+<!--                    ,{field: 'isLoad',  width: 100, title: '数据加载'}-->
+<!--                    ,{field: 'remarks',  width: 150, title: '备注'}-->
+<!--                ]-->
+<!--            ]-->
+<!--            ,page: true-->
+<!--        });-->
+
+<!--        $('.demoTable .layui-btn').on('click', function(){-->
+<!--            var type = $(this).data('type');-->
+<!--            active[type] ? active[type].call(this) : '';-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 
 </body>
 </html>

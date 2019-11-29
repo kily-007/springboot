@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>全线数据管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="./css/dataManageTable.css"  >
+
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<form class="layui-form" >
+<button type="button" class="layui-btn" ><i class="layui-icon"></i>&nbsp;&nbsp;刷新</button>
+<button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>&nbsp;&nbsp;数据上传</button>
+<button type="button" class="layui-btn"><i class="layui-icon"></i>&nbsp;&nbsp;数据迁移</button>
+<button type="button" class="layui-btn layui-btn-danger"><i class="layui-icon"></i>&nbsp;&nbsp;数据清洗</button>
+<button type="button" class="layui-btn layui-btn-danger"><i class="layui-icon"></i>&nbsp;&nbsp;删除选中</button>
+<div class="layui-inline" style="margin-left: 20px">
+    <label class="" style="width: 100px">全局查找：</label>
+    <div class="layui-input-inline">
+        <input type="text" class="layui-input" id="test18" placeholder="关键字">
+
+    </div>
+</div>
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;"></fieldset>
+
+<div>
+
+<!--    树形图-->
+    <div id="test12" class="demo-tree-more" style="float:left;width: 400px"></div>
+
+
+<!--    右侧区域-->
+    <div style="width:900px;height:555px;position: relative;float: right;margin-right: 50px;border:1px solid #009688">
+        <div class="layui-inline" style="margin-left: 30px;margin-top: 20px">
+            <label class="" >按关键字查找：</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline" style="margin-left: 15px;margin-top: 20px">
+            <label class="" >按日期查找：</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="test1" placeholder="起始时间">
+            </div>
+            --
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="test2" placeholder="结束时间">
+            </div>
+            <button type="button" style="margin-left: 15px" class="layui-btn layui-btn-sm layui-btn-normal">&nbsp;&nbsp;确认&nbsp;&nbsp;</button>
+        </div>
+
+        <table style="margin-top: 30px">
+            <thead>
+            <tr>
+                <th style="width: 50px">ID</th>
+                <th style="width: 220px">数据文件名</th>
+                <th style="width: 68px">文件类型</th>
+                <th style="width: 68px">文件大小</th>
+                <th style="width: 200px">时间</th>
+                <th style="width: 120px">备注</th>
+                <th style="width: 165px">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dataFile:${dataFiles}">
+                <td th:text="${dataFile.id}"></td>
+                <td th:text="${dataFile.name}"></td>
+                <td th:text="${dataFile.type}"></td>
+                <td th:text="${dataFile.size}"></td>
+                <td th:text="${dataFile.time}"></td>
+                <td th:text="${dataFile.remarks}"></td>
+                <td>
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-normal"  style="height: 26px"><i class="layui-icon"></i> 删除</button>
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" style="height: 26px"><i class="layui-icon"></i> 下载</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div id="page">
+            第&nbsp;<i th:text="${currentPage+1}"></i>&nbsp;页，
+            共&nbsp;<i th:text="${totalPages}"></i>&nbsp;页，
+            每页&nbsp;<i th:text="${limitPage}"></i>&nbsp;条数据，
+            共&nbsp;<i th:text="${totalCount}"></i>&nbsp;条数据&nbsp;&nbsp;&nbsp;
+
+            <a th:href="@{/dataAllLineManage(page=0,totalPage=${totalPages})}">首页</a>&nbsp;
+            <a th:href="@{/dataAllLineManage(page=${currentPage-1},totalPage=${totalPages})}">上一页</a>&nbsp;
+            <a th:href="@{/dataAllLineManage(page=${currentPage+1},totalPage=${totalPages})}">下一页</a>&nbsp;
+            <a th:href="@{/dataAllLineManage(page=${totalPages-1},totalPage=${totalPages})}">末页</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+</div>
+</form>
+
+<script src="./layui/layui.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use(['form','upload','laydate','tree', 'util'], function(){
+        var tree = layui.tree
+            ,form=layui.form
+            ,layer = layui.layer
+            ,util = layui.util
+            ,laydate=layui.laydate
+            ,upload = layui.upload
+            ,data = [{//模拟数据
+            title: '日志'
+            , id: 1
+            , field: 'name1'
+            ,children: [{
+                title: '1月'
+                , id: 2
+                , field: 'name11'
+                , checked: true
+                , spread: true
+            }]
+        },{
+                title: '2017年'
+                ,id: 1
+                ,field: 'name1'
+                ,checked: true
+                ,spread: true
+                ,children: [{
+                    title: '1月'
+                    ,id: 2
+                    ,field: 'name11'
+                    ,checked: true
+                    ,spread: true
+                    ,children: [{
+                        title: '1号'
+                        ,id: 3
+                        ,field: ''
+                        ,checked: true
+                        ,spread: true
+                        ,children: [{
+                            title: '00时'
+                            ,id: 4
+                            ,field: ''
+                            ,checked: true
+                            ,spread: true
+                            ,children: [{
+                                title: '00分 201701010000.bin'
+                                ,id: 5
+                                ,checked: true
+                                ,spread: true
+                                ,field: ''
+                            },{
+                                title: '01分 201701010001.bin'
+                                ,id: 6
+                                ,checked: true
+                                ,spread: true
+                                ,field: ''
+                            },{
+                            title: '02分 201701010002.bin'
+                            ,checked: true
+                            ,spread: true
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '03分 201701010003.bin '
+                            ,checked: true
+                            ,spread: true
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '04分 201701010004.bin'
+                            ,checked: true
+                            ,spread: true
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '05分 201701010005.bin'
+                            ,checked: true
+                            ,spread: true
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '06分 201701010006.bin'
+                            ,checked: true
+                            ,spread: true
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '07分 201701010007.bin'
+                            ,checked: true
+                            ,spread: true
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '08分 201701010008.bin'
+                            ,checked: true
+                            ,spread: true
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '09分 201701010009.bin'
+                            ,checked: true
+                            ,spread: true
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '10分 201701010010.bin'
+                            ,checked: true
+                            ,spread: true
+                            ,id: 6
+                            ,field: ''
+                        }]
+                        }]
+                    },{
+                        title: '2号'
+                        ,id: 7
+                        ,field: ''
+                        ,children: [{
+                            title: '00时'
+                            ,id: 15
+                            ,field: ''
+                        }]
+                    },{
+                        title: '3号'
+                        ,id: 8
+                        ,field: ''
+                        ,children: [{
+                            title: '四级1-1-2-1'
+                            ,id: 32
+                            ,field: ''
+                        }]
+                    }]
+                },{
+                    title: '2月'
+                    ,id: 4
+                    ,children: [{
+                        title: '1号'
+                        ,id: 9
+                        ,field: ''
+                        ,disabled: true
+                    },{
+                        title: '2号'
+                        ,id: 10
+                        ,field: ''
+                    }]
+                },{
+                    title: '3月'
+                    ,id: 20
+                    ,field: ''
+                    ,children: [{
+                        title: '三级1-3-1'
+                        ,id: 21
+                        ,field: ''
+                    },{
+                        title: '三级1-3-2'
+                        ,id: 22
+                        ,field: ''
+                    }]
+                }]
+            },{//模拟数据
+            title: '2018年'
+            ,id: 1
+            ,field: 'name1'
+            ,children: [{
+                title: '1月'
+                ,id: 2
+                ,field: 'name11'
+                ,children: [{
+                    title: '1号'
+                    ,id: 3
+                    ,field: ''
+                    ,children: [{
+                        title: '00时'
+                        ,id: 4
+                        ,field: ''
+                        ,children: [{
+                            title: '00分'
+                            ,id: 5
+                            ,field: ''
+                        },{
+                            title: '01分'
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '02分'
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '03分'
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '04分'
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '05分'
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '05分'
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '06分'
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '07分'
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '08分'
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '09分'
+                            ,id: 6
+                            ,field: ''
+                        }]
+                    }]
+                },{
+                    title: '2号'
+                    ,id: 7
+                    ,field: ''
+                    ,children: [{
+                        title: '四级1-1-1-1 可允许跳转'
+                        ,id: 15
+                        ,field: ''
+                        ,href: 'https://www.layui.com/doc/'
+                    }]
+                },{
+                    title: '3号'
+                    ,id: 8
+                    ,field: ''
+                    ,children: [{
+                        title: '四级1-1-2-1'
+                        ,id: 32
+                        ,field: ''
+                    }]
+                }]
+            },{
+                title: '2月'
+                ,id: 4
+                ,children: [{
+                    title: '1号'
+                    ,id: 9
+                    ,field: ''
+                    ,disabled: true
+                },{
+                    title: '2号'
+                    ,id: 10
+                    ,field: ''
+                }]
+            },{
+                title: '3月'
+                ,id: 20
+                ,field: ''
+                ,children: [{
+                    title: '三级1-3-1'
+                    ,id: 21
+                    ,field: ''
+                },{
+                    title: '三级1-3-2'
+                    ,id: 22
+                    ,field: ''
+                }]
+            }]
+        },{//模拟数据
+            title: '2019年'
+            ,id: 1
+            ,field: 'name1'
+            ,children: [{
+                title: '1月'
+                ,id: 2
+                ,field: 'name11'
+                ,children: [{
+                    title: '1号'
+                    ,id: 3
+                    ,field: ''
+                    ,children: [{
+                        title: '00时'
+                        ,id: 4
+                        ,field: ''
+                        ,children: [{
+                            title: '00分'
+                            ,id: 5
+                            ,field: ''
+                        },{
+                            title: '01分'
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '02分'
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '03分'
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '04分'
+                            ,id: 6
+                            ,field: ''
+                        },{
+                            title: '05分'
+                            ,id: 6
+                            ,field: ''
+                        }]
+                    }]
+                },{
+                    title: '2号'
+                    ,id: 7
+                    ,field: ''
+                    ,children: [{
+                        title: '四级1-1-1-1 可允许跳转'
+                        ,id: 15
+                        ,field: ''
+                        ,href: 'https://www.layui.com/doc/'
+                    }]
+                },{
+                    title: '3号'
+                    ,id: 8
+                    ,field: ''
+                    ,children: [{
+                        title: '四级1-1-2-1'
+                        ,id: 32
+                        ,field: ''
+                    }]
+                }]
+            },{
+                title: '2月'
+                ,id: 4
+                ,children: [{
+                    title: '1号'
+                    ,id: 9
+                    ,field: ''
+                },{
+                    title: '2号'
+                    ,id: 10
+                    ,field: ''
+                }]
+            },{
+                title: '3月'
+                ,id: 20
+                ,field: ''
+                ,children: [{
+                    title: '三级1-3-1'
+                    ,id: 21
+                    ,field: ''
+                },{
+                    title: '三级1-3-2'
+                    ,id: 22
+                    ,field: ''
+                }]
+            }]
+        }];
+
+        //基本演示
+        tree.render({
+            elem: '#test12'
+            ,data: data
+            ,showCheckbox: true  //是否显示复选框
+            ,id: 'demoId1'
+            ,isJump: true //是否允许点击节点时弹出新窗口跳转
+            ,click: function(obj){
+                var data = obj.data;  //获取当前点击的节点数据
+                layer.msg('状态：'+ obj.state + '<br>节点数据：' + JSON.stringify(data));
+            }
+        });
+
+        //指定允许上传的文件类型
+        upload.render({
+            elem: '#test3'
+            ,url: '/upload/'
+            ,accept: 'file' //普通文件
+            ,done: function(res){
+                console.log(res)
+            }
+        });
+
+        //自定义重要日
+        laydate.render({
+            elem: '#test18'
+            ,mark: {
+                '0-10-14': '生日'
+                ,'0-12-31': '跨年' //每年的日期
+                ,'0-0-10': '实验' //每月某天
+                ,'2017-8-15': '' //如果为空字符，则默认显示数字+徽章
+                ,'2099-10-14': '呵呵'
+            }
+            ,done: function(value, date){
+                if(date.year === 2017 && date.month === 8 && date.date === 15){ //点击2017年8月15日，弹出提示语
+                    layer.msg('这一天是：中国人民抗日战争胜利72周年');
+                }
+            }
+        });
+        laydate.render({
+            elem: '#test17'
+        });
+
+        //常规用法
+        laydate.render({
+            elem: '#test1'
+        });
+        laydate.render({
+            elem: '#test2'
+        });
+
+
+        form.render();
+
+    });
+</script>
+
+</body>
+</html>

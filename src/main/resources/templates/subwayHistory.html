@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="./css/subwayHistoryTable.css" >
+</head>
+<body>
+<form class="layui-form">
+    <h2 style="margin-left: 45%;padding-bottom: 10px">车流量统计</h2>
+<div style="padding: 10px; background-color: #F2F2F2;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12" style="padding: 3px;">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-inline" style="margin-left: 5%;margin-top: 20px">
+                            <label class="layui-form-label">数据粒度：</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="sex" value="小时" title="小时">
+                                <input type="radio" name="sex" value="日" title="日" checked="">
+                                <input type="radio" name="sex" value="周" title="周" >
+                                <input type="radio" name="sex" value="月" title="月" >
+                            </div>
+                    </div>
+                    <div class="layui-inline" style="margin-left: 22px;margin-top: 20px">
+                        <label class="" >时间：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="test1" placeholder="起始时间">
+                        </div>
+                        --
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="test2" placeholder="结束时间">
+                        </div>
+
+                        <button type="button" style="margin-left: 20px" class="layui-btn layui-btn-sm layui-btn-normal">&nbsp;&nbsp;&nbsp;确认&nbsp;&nbsp;&nbsp;</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12" style="padding: 3px;">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <!--    曲线图-->
+                    <div id="main" style="width: 100%;height:300px;"></div>
+                    <img src="./images/subwayHistory.png" style="margin-left: 30%;position: relative;bottom: 20px">
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12" style="padding: 3px;">
+            <div class="layui-card">
+                <div class="layui-card-body">
+
+                    <table class="tabledata" style="margin-top: 30px">
+                        <thead>
+                        <tr>
+                            <th style="width: 150px">时间</th>
+                            <th style="width: 90px">通道1上行</th>
+                            <th style="width: 90px">通道2下行</th>
+                            <th style="width: 90px">通道3上行</th>
+                            <th style="width: 90px">通道4下行</th>
+                            <th style="width: 90px">上行合计</th>
+                            <th style="width: 90px">下行合计</th>
+                            <th style="width: 90px">共合计</th>
+                            <th style="width: 100px">备注</th>
+                            <th style="width: 150px">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="subwayCount:${subwayCounts}">
+                            <td th:text="${subwayCount.time}"></td>
+                            <td th:text="${subwayCount.passNum1}"></td>
+                            <td th:text="${subwayCount.passNum2}"></td>
+                            <td th:text="${subwayCount.passNum3}"></td>
+                            <td th:text="${subwayCount.passNum4}"></td>
+                            <td th:text="${subwayCount.sumUp}"></td>
+                            <td th:text="${subwayCount.sumDown}"></td>
+                            <td th:text="${subwayCount.sum}"></td>
+                            <td th:text="${subwayCount.remarks}"></td>
+                            <td>
+                                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal"  style="height: 26px"><i class="layui-icon"></i> 删除</button>
+                                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" style="height: 26px"><i class="layui-icon"></i> 下载</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div id="page">
+                        第&nbsp;<i th:text="${currentPage+1}"></i>&nbsp;页，
+                        共&nbsp;<i th:text="${totalPages}"></i>&nbsp;页，
+                        每页&nbsp;<i th:text="${limitPage}"></i>&nbsp;条数据，
+                        共&nbsp;<i th:text="${totalCount}"></i>&nbsp;条数据&nbsp;&nbsp;&nbsp;
+
+                        <a th:href="@{/subwayHistory(page=0,totalPage=${totalPages})}">首页</a>&nbsp;
+                        <a th:href="@{/subwayHistory(page=${currentPage-1},totalPage=${totalPages})}">上一页</a>&nbsp;
+                        <a th:href="@{/subwayHistory(page=${currentPage+1},totalPage=${totalPages})}">下一页</a>&nbsp;
+                        <a th:href="@{/subwayHistory(page=${totalPages-1},totalPage=${totalPages})}">末页</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<script type="text/javascript" src="./js/echarts.js"></script>
+<script type="text/javascript" src="./js/subwayHistory.js"></script>
+<script type="text/javascript" src="./layui/layui.js"></script>
+<script>
+    layui.use(['form','laydate'], function(){
+        var form = layui.form,
+        laydate=layui.laydate;
+
+        laydate.render({
+            elem: '#test1'
+        });
+        laydate.render({
+            elem: '#test2'
+        });
+
+        form.render();
+    });
+</script>
+
+</body>
+</html>

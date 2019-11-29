@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>列车数据管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="./css/dataManageTable.css"  >
+</head>
+<body>
+<form class="layui-form">
+    <div class="layui-inline" style="margin-left: 300px;margin-top: 20px">
+        <label class="" >按关键字查找：</label>
+        <div class="layui-input-inline">
+            <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-inline" style="margin-left: 22px;margin-top: 20px">
+        <label class="" >按日期查找：</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="test1" placeholder="起始时间">
+        </div>
+        --
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="test2" placeholder="结束时间">
+        </div>
+        <button type="button" style="margin-left: 20px" class="layui-btn layui-btn-sm layui-btn-normal">&nbsp;&nbsp;&nbsp;确认&nbsp;&nbsp;&nbsp;</button>
+
+
+    </div>
+
+
+<table class="tabledata" style="margin-top: 30px">
+    <thead>
+    <tr>
+        <th style="width: 60px">ID</th>
+        <th style="width: 60px">通道编号</th>
+        <th style="width: 60px">今日趟次</th>
+        <th style="width: 200px">数据文件名</th>
+        <th style="width: 70px">文件类型</th>
+        <th style="width: 90px">文件大小</th>
+        <th style="width: 200px">驶入时间</th>
+        <th style="width: 200px">驶出时间</th>
+        <th style="width: 90px">行驶方向</th>
+        <th style="width: 85px">经过减振区</th>
+        <th style="width: 150px">备注</th>
+        <th style="width: 180px">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="subwayDataFile:${subwayDataFiles}">
+        <td th:text="${subwayDataFile.id}"></td>
+        <td th:text="${subwayDataFile.number}"></td>
+        <td th:text="${subwayDataFile.todayTimes}"></td>
+        <td th:text="${subwayDataFile.name}"></td>
+        <td th:text="${subwayDataFile.type}"></td>
+        <td th:text="${subwayDataFile.size}"></td>
+        <td th:text="${subwayDataFile.inTime}"></td>
+        <td th:text="${subwayDataFile.outTime}"></td>
+        <td th:text="${subwayDataFile.direction}"></td>
+        <td th:text="${subwayDataFile.throughDampArea}"></td>
+        <td th:text="${subwayDataFile.remarks}"></td>
+        <td>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal"  style="height: 26px"><i class="layui-icon"></i> 删除</button>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" style="height: 26px"><i class="layui-icon"></i> 下载</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div id="page">
+    第&nbsp;<i th:text="${currentPage+1}"></i>&nbsp;页，
+    共&nbsp;<i th:text="${totalPages}"></i>&nbsp;页，
+    每页&nbsp;<i th:text="${limitPage}"></i>&nbsp;条数据，
+    共&nbsp;<i th:text="${totalCount}"></i>&nbsp;条数据&nbsp;&nbsp;&nbsp;
+
+    <a th:href="@{/dataAllLineManage(page=0,totalPage=${totalPages})}">首页</a>&nbsp;
+    <a th:href="@{/dataAllLineManage(page=${currentPage-1},totalPage=${totalPages})}">上一页</a>&nbsp;
+    <a th:href="@{/dataAllLineManage(page=${currentPage+1},totalPage=${totalPages})}">下一页</a>&nbsp;
+    <a th:href="@{/dataAllLineManage(page=${totalPages-1},totalPage=${totalPages})}">末页</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+</form>
+<script src="./layui/layui.js"></script>
+<script>
+    layui.use(['form','laydate'], function() {
+        var form = layui.form
+            ,laydate=layui.laydate
+
+        //常规用法
+        laydate.render({
+            elem: '#test1'
+        });
+        laydate.render({
+            elem: '#test2'
+        });
+    });
+</script>
+</body>
+</html>

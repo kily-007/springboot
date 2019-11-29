@@ -11,5 +11,12 @@ public class IndexController {
         return "index";
     }
 
-
+//    @GetMapping("/dataLoad")
+//    public String showIndex(@RequestParam(required = false,defaultValue = "0")int page,
+//                            @RequestParam(required = false,defaultValue = "10")int limit, Model model){
+//        System.out.println(limit+" "+page);
+//        model.addAttribute("limit",limit);
+//        model.addAttribute("page",page);
+//        return "dataLoadManage";
+//    }
 }

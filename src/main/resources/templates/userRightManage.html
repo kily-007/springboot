@@ -1,10 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>用户权限管理</title>
+    <link rel="stylesheet" href="./css/invasionHistory.css"  >
+    <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
 </head>
 <body>
+<h2 style="margin-left: 44%">用户权限管理</h2>
+
+<div class="container" style="margin-top: 50px">
+    <table class="tabledata" style="width: 100%">
+        <thead>
+        <tr>
+            <th>用户名</th>
+            <th>所属单位</th>
+            <th>仪表状态监测</th>
+            <th>仪表仪表评估</th>
+            <th>仪表评估历史</th>
+            <th>列车实时监测</th>
+            <th>列车流量统计</th>
+            <th>结构-应力监测</th>
+            <th>结构-温度监测</th>
+            <th>结构-振动检测</th>
+            <th>外部入侵监测</th>
+            <th>内部入侵监测</th>
+            <th>入侵历史记录</th>
+            <th>全线数据管理</th>
+            <th>行车数据管理</th>
+            <th>数据加载管理</th>
+            <th>系统用户管理</th>
+            <th>用户权限管理</th>
+            <th>备注</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="userRight:${userRights}">
+            <td th:text="${userRight.username}"></td>
+            <td th:text="${userRight.employer}"></td>
+            <td th:text="${userRight.initMeter}"></td>
+            <td th:text="${userRight.evaluateMeter}"></td>
+            <td th:text="${userRight.evaluateMeterHistory}"></td>
+            <td th:text="${userRight.subwayMonitor}"></td>
+            <td th:text="${userRight.subwayHistory}"></td>
+            <td th:text="${userRight.statusPress}"></td>
+            <td th:text="${userRight.statusTemperature}"></td>
+            <td th:text="${userRight.statusVibration}"></td>
+            <td th:text="${userRight.externalInvasion}"></td>
+            <td th:text="${userRight.internalInvasion}"></td>
+            <td th:text="${userRight.invasionHistory}"></td>
+            <td th:text="${userRight.dataAllLineManage}"></td>
+            <td th:text="${userRight.dataSubwayManage}"></td>
+            <td th:text="${userRight.dataLoadManage}"></td>
+            <td th:text="${userRight.systemUsersManage}"></td>
+            <td th:text="${userRight.userRightManage}"></td>
+            <td th:text="${userRight.remarks}"></td>
+            <td>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" style="height: 26px"><i class="layui-icon"></i> 编辑</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div id="page">
+    第&nbsp;<i th:text="${currentPage+1}"></i>&nbsp;页，
+    共&nbsp;<i th:text="${totalPages}"></i>&nbsp;页，
+    每页&nbsp;<i th:text="${limitPage}"></i>&nbsp;条数据，
+    共&nbsp;<i th:text="${totalCount}"></i>&nbsp;条数据&nbsp;&nbsp;&nbsp;
+
+    <a th:href="@{/userRightManage(page=0,totalPage=${totalPages})}">首页</a>&nbsp;
+    <a th:href="@{/userRightManage(page=${currentPage-1},totalPage=${totalPages})}">上一页</a>&nbsp;
+    <a th:href="@{/userRightManage(page=${currentPage+1},totalPage=${totalPages})}">下一页</a>&nbsp;
+    <a th:href="@{/userRightManage(page=${totalPages-1},totalPage=${totalPages})}">末页</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+
 
 </body>
 </html>

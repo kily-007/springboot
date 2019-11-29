@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="./layui/css/layui.css">
 </head>
-<body class="layui-layout-body" style="overflow:hidden">
+<body class="layui-layout-body">
 
 <form action="/index" method="post">
 <!--头部横向导航功能-->
@@ -23,8 +23,8 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">其它系统</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="javascript:;" data-url="/rough" data-id="rough" data-title="总体概览" class="site-demo-active" data-type="tabAdd">总体概览</a></dd>
+                    <dd><a href="/systemUsersManage">消息管理</a></dd>
                     <dd><a href="">授权管理</a></dd>
                 </dl>
             </li>
@@ -33,7 +33,7 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    <i th:text="${session.username}"></i>
+                    <span id="username">陈钢</span>
 
                 </a>
                 <dl class="layui-nav-child">
@@ -46,38 +46,42 @@
     </div>
 
 
-    <!--        左侧导航功能-->
+    <!-- 左侧导航功能-->
     <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
+        <div class="">
+<!--            layui-side-scroll-->
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree " >
-                <li class="layui-nav-item"><a href="javascript:;" data-url="/welcome" data-id="welcome" data-title="首页" class="site-demo-active" data-type="tabAdd">首页</a></li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">仪表初始化</a>
+               <li class="layui-nav-item">
+                    <a href="javascript:;">系统介绍</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/initMeter" data-id="initMeter" data-title="参数初始化" class="site-demo-active" data-type="tabAdd">参数初始化</a></dd>
+                        <dd><a href="javascript:;" data-url="/rough" data-id="rough" data-title="总体概览" class="site-demo-active" data-type="tabAdd">总体概览</a></dd>
+                        <dd><a href="javascript:;" data-url="/detail" data-id="detail" data-title="详细介绍" class="site-demo-active" data-type="tabAdd">详细介绍</a></dd>
+                        <dd><a href="javascript:;" data-url="/systemComposition" data-id="systemComposition" data-title="系统组成" class="site-demo-active" data-type="tabAdd">系统组成</a></dd>
+                        <dd><a href="javascript:;" data-url="/systemContent" data-id="systemContent" data-title="监测内容" class="site-demo-active" data-type="tabAdd">监测内容</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">仪表管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-url="/initMeter" data-id="initMeter" data-title="仪表状态监测" class="site-demo-active" data-type="tabAdd">仪表状态监测</a></dd>
                         <dd><a href="javascript:;" data-url="/evaluateMeter" data-id="evaluateMeter" data-title="仪表评估" class="site-demo-active" data-type="tabAdd">仪表评估</a></dd>
+                        <dd><a href="javascript:;" data-url="/evaluateMeterHistory" data-id="evaluateMeterHistory" data-title="评估历史" class="site-demo-active" data-type="tabAdd">评估历史</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">原始数据管理</a>
+                    <a href="javascript:;">行车监测</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/dataManage" data-id="dataManage" data-title="全线数据管理" class="site-demo-active" data-type="tabAdd">原始数据管理</a></dd>
-                        <dd><a href="javascript:;" data-url="/carDataManage" data-id="carDataManage" data-title="列车数据管理" class="site-demo-active" data-type="tabAdd">车辆数据管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/subwayMonitor" data-id="subwayMonitor" data-title="列车实时监测" class="site-demo-active" data-type="tabAdd">列车实时监测</a></dd>
+                        <dd><a href="javascript:;" data-url="/subwayHistory" data-id="subwayHistory" data-title="列车流量统计" class="site-demo-active" data-type="tabAdd">列车流量统计</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">列车行车监测</a>
+                    <a href="javascript:;">结构监测</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列车实时监测</a></dd>
-                        <dd><a href="javascript:;">列车历史统计</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">减震分析</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">减震阶段分析</a></dd>
-                        <dd><a href="javascript:;">减震分析报表</a></dd>
+                        <dd><a href="javascript:;" data-url="/statusPress" data-id="statusPress" data-title="应力监测" class="site-demo-active" data-type="tabAdd">应力监测</a></dd>
+                        <dd><a href="javascript:;" data-url="/statusTemperature" data-id="statusTemperature" data-title="温度监测" class="site-demo-active" data-type="tabAdd">温度监测</a></dd>
+                        <dd><a href="javascript:;" data-url="/statusVibration" data-id="statusVibration" data-title="振动监测" class="site-demo-active" data-type="tabAdd">振动监测</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -85,14 +89,32 @@
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="/externalInvasion" data-id="externalInvasion" data-title="外部入侵" class="site-demo-active" data-type="tabAdd">外部入侵</a></dd>
                         <dd><a href="javascript:;" data-url="/internalInvasion" data-id="internalInvasion" data-title="内部入侵" class="site-demo-active" data-type="tabAdd">内部入侵</a></dd>
+                        <dd><a href="javascript:;" data-url="/invasionHistory" data-id="invasionHistory" data-title="历史记录" class="site-demo-active" data-type="tabAdd">历史记录</a></dd>
                     </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">数据管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-url="/dataAllLineManage" data-id="dataAllLineManage" data-title="全线数据管理" class="site-demo-active" data-type="tabAdd">全线数据管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/dataSubwayManage" data-id="dataSubwayManage" data-title="列车数据管理" class="site-demo-active" data-type="tabAdd">车辆数据管理</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">减振分析</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;"data-url="/dampingAnalysis" data-id="dampingAnalysis" data-title="减振阶段分析" class="site-demo-active" data-type="tabAdd">减振阶段分析</a></dd>
+                        <dd><a href="javascript:;"data-url="/dampingAnalysisHistory" data-id="dampingAnalysisHistory" data-title="减振分析报表" class="site-demo-active" data-type="tabAdd">减振分析报表</a></dd>
+                    </dl>
+
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">系统管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;"data-url="/dataLoadManage" data-id="dataLoadManage" data-title="数据加载管理" class="site-demo-active" data-type="tabAdd">数据加载管理</a></dd>
-                        <dd><a href="javascript:;"data-url="/systemUsersManage" data-id="userManage" data-title="系统用户管理" class="site-demo-active" data-type="tabAdd">系统用户管理</a></dd>
-                        <dd><a href="javascript:;"data-url="/userRightManage" data-id="userRightManage" data-title="用户权限管理" class="site-demo-active" data-type="tabAdd">用户权限管理</a></dd>
+<!--                        <dd><a href="javascript:;" data-url="/dataLoad" data-id="dataLoad" data-title="数据加载管理" class="site-demo-active" data-type="tabAdd">数据加载管理</a></dd>-->
+                        <dd><a href="javascript:;" data-url="/dataLoadManage" data-id="dataLoadManage" data-title="数据加载管理" class="site-demo-active" data-type="tabAdd">数据加载管理</a></dd>
+<!--                        <dd><a href="/dataLoad">数据加载管理</a></dd>-->
+                        <dd><a href="javascript:;" data-url="/systemUsersManage" data-id="systemUsersManage" data-title="系统用户管理" class="site-demo-active" data-type="tabAdd">系统用户管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/userRightManage" data-id="userRightManage" data-title="用户权限管理" class="site-demo-active" data-type="tabAdd">用户权限管理</a></dd>
                     </dl>
                 </li>
 
@@ -107,13 +129,13 @@
 
 <div class="layui-body" style="top: 50px; border-left: solid 2px #1AA094;" >
     <!-- 内容主体-->
-    <div class="layui-tab layui-tab-card layui-tab-brief" lay-filter="demo" lay-allowclose="false" style="height: 100%">
+    <div class="layui-tab layui-tab-card" lay-filter="demo" lay-allowclose="true" style="height: 100%">
         <ul class="layui-tab-title" >
-            <li class="layui-this" lay-id="welcome">首页</li>
+            <li class="layui-this" lay-id="rough">总体概览</li>
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show" >
-                <iframe src="/welcome"   frameborder="0" style="position:absolute;width: 99%;height: 100%"></iframe>
+                <iframe src="/rough"   frameborder="0" style="position:absolute;width: 100%;height: 100%"></iframe>
             </div>
         </div>
     </div>
@@ -128,10 +150,11 @@
 </form>
 
 <script src="./layui/layui.js"></script>
-<script>
+<script th:inline="javascript">
     //JavaScript代码区域
-    layui.use('element', function(){
+    layui.use(['element','jquery'], function(){
         var element = layui.element;
+        // var table = layui.table;
         var $ = layui.jquery;
         //触发事件
         var active = {
@@ -185,6 +208,14 @@
             //最后不管是否新增tab，最后都转到要打开的选项页面上
             active.tabChange(dataid.attr("data-id"));
         });
+
+        //获取session中的用户名
+        var username = [[${session.username}]];
+        if($.trim(username).length === 0){
+            $("#username").html("陈钢");
+        }else{
+            $("#username").html(username);
+        }
 
     });
 

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <link rel="stylesheet" href="./css/statusPress.css" >
+    <link rel="stylesheet" href="./css/statusTable.css" >
+    <script type="text/javascript" src="./layui/layui.js"></script>
+
+</head>
+<body>
+<form class="layui-form">
+<div style="padding: 10px; background-color: #F2F2F2;">
+    <div class="layui-row layui-col-space15">
+
+        <h2 style="margin-left: 44%">应力监测</h2>
+
+        <div class="layui-col-md12" style="padding: 4px;">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div style="width: 100%; height: 80px; border: 1px solid #84C7CE; ">
+                        <div class="layui-inline" style="margin-left: 60px;margin-top: 22px;">
+                            <label class="layui-form-label">数据粒度：</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="sex" value="小时" title="小时">
+                                <input type="radio" name="sex" value="日" title="日" checked="">
+                                <input type="radio" name="sex" value="周" title="周" >
+                                <input type="radio" name="sex" value="月" title="月" >
+                            </div>
+                        </div>
+                        <div class="layui-inline" style="margin-left: 30px;margin-top: 22px;">
+                            <label>起始时间：</label>
+                            <input type="text" class="input"  id="test1" placeholder="起始时间">
+                            <label style="margin-left: 20px;">结束时间：</label>
+                            <input type="text" class="input" id="test2" placeholder="结束时间">
+                        </div>
+                        <button type="button" style="margin-left: 50px;margin-top: 22px;" class="layui-btn layui-btn-sm layui-btn-normal">&nbsp;&nbsp;&nbsp;确认&nbsp;&nbsp;&nbsp;</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12" style="padding: 4px;">
+            <div class="layui-card">
+                <div class="layui-card-header" style="font-size: 15px">
+                    <label style="color: #1E9FFF;margin-left: 23%">最大值：</label>
+                    <label style="color: #0000FF">-64.21</label>
+                    <label style="color: #1E9FFF;margin-left: 20px">最小值：</label>
+                    <label style="color: #0000FF">-71.14</label>
+                    <label style="color: #1E9FFF;margin-left: 20px">平均值：</label>
+                    <label style="color: #0000FF">-66.6</label>
+                    <label style="color: #1E9FFF;margin-left: 20px">方差：</label>
+                    <label style="color: #0000FF">6.88</label>
+                    <label style="color: #1E9FFF;margin-left: 20px">单位：MPa</label>
+                </div>
+
+                <div class="layui-card-body" style="height: 380px">
+                    <table class="tabledata" style="width: 250px;height: 370px;position: absolute;left: 10px">
+                        <thead>
+                        <tr>
+                            <th>
+                                <div class="layui-inline">
+                                    <label>测区：</label>
+                                    <div class="layui-input-inline" style="width: 185px;height: 31px;margin-top: -10px;">
+                                        <select name="modules" lay-verify="required" lay-search="">
+                                            <option value="1">通道0-道轨</option>
+                                            <option value="2">通道1-洞壁</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody style="overflow-y: scroll;height: 326px;display: block;">
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JB26 0001"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JN26 0856"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JB35 1230"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JB26 0001"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JN26 0856"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JB35 1230"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JB26 0001"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JN26 0856"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JB35 1230"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JB26 0001"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JN26 0856"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JB35 1230"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JN26 0856"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JB35 1230"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JN26 0856"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JB35 1230"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JN26 0856"></td></tr>
+                        <tr><td><input type="radio" name="sex" title="CLH_S22S-JB35 1230"></td></tr>
+                        </tbody>
+                    </table>
+                    <div id="press" style="width: 1000px;height:370px;position: relative;top: 10px;float: right"></div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</form>
+<script type="text/javascript" src="./js/echarts.js"></script>
+<script type="text/javascript" src="./js/statusPress.js"></script>
+<script>
+    layui.use(['form','laydate'], function(){
+        var form = layui.form,
+            laydate=layui.laydate;
+
+        laydate.render({
+            elem: '#test1'
+        });
+        laydate.render({
+            elem: '#test2'
+        });
+
+        form.render();
+    });
+</script>
+</body>
+</html>

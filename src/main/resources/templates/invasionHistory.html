@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="./css/invasionHistory.css"  >
+</head>
+<body>
+<h2  style="margin-left: 44%;padding-bottom: 20px;margin-top: 5px;">入侵历史记录</h2>
+<div style="width: 99%; height: 145px; border: 1px solid #84C7CE">
+
+    <div class="layui-form-item">
+        <label class="" style="padding: 10px;font-size: 16px">查询选项：</label>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline" style="margin-left: 4%">
+            <label>起始时间：</label>
+            <input type="text" class="input"  id="test1" placeholder="起始时间">
+            <label style="margin-left: 20px;">结束时间：</label>
+            <input type="text" class="input" id="test2" placeholder="结束时间">
+
+            <label style="margin-left: 65px;">测区：</label>
+            <input type="text" class="input"  placeholder="所有测区">
+
+            <label style="margin-left: 52px;">块编号：</label>
+            <input type="text" class="input"  placeholder="所有块区">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline" style="margin-left: 4%;">
+            <label class="" >入侵类型：</label>
+            <select name="modules" class="select"  lay-verify="required" lay-search="">
+                <option value="">所有类型</option>
+                <option value="1">外部入侵</option>
+                <option value="2">内部入侵</option>
+            </select>
+
+            <label style="margin-left: 20px;">预警级别：</label>
+            <select name="modules" class="select"  lay-verify="required" lay-search="">
+                <option value="">所有预警</option>
+                <option value="1">1级预警(橘色)</option>
+                <option value="2">2级预警(红色)</option>
+            </select>
+
+            <label style="margin-left: 25px;">是否已处理：</label>
+            <select name="modules" class="select"  lay-verify="required" lay-search="">
+                <option value="">所有记录</option>
+                <option value="1">已处理</option>
+                <option value="2">未处理</option>
+            </select>
+
+            <label style="margin-left: 25px;">备注关键字：</label>
+            <input type="text" class="input"  placeholder="">
+
+            <button type="button" style="margin-left: 20px" class="layui-btn layui-btn-sm layui-btn-normal">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</button>
+        </div>
+    </div>
+</div>
+
+<table class="tabledata" style="width: 100%;margin-top: 20px">
+    <thead>
+    <tr>
+        <th style="width: 50px">ID</th>
+        <th style="width: 150px">时间</th>
+        <th style="width: 90px">入侵类型</th>
+        <th style="width: 60px">测区</th>
+        <th style="width: 60px">块编号</th>
+        <th style="width: 200px">位置</th>
+        <th style="width: 65px">预警级别</th>
+        <th style="width: 65px">已处理</th>
+        <th style="width: 80px">处理人</th>
+        <th style="width: 150px">处理时间</th>
+        <th style="width: 120px">备注</th>
+        <th style="width: 100px">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="invasionHistory:${invasionHistorys}" style="height: 42px">
+        <td th:text="${invasionHistory.id}" th:classappend="${invasionHistory.isDealed=='是'}? 'font_black': 'font_red'"></td>
+        <td th:text="${invasionHistory.time}"th:classappend="${invasionHistory.isDealed=='是'}? 'font_black': 'font_red'"></td>
+        <td th:text="${invasionHistory.invasionType}"th:classappend="${invasionHistory.isDealed=='是'}? 'font_black': 'font_red'"></td>
+        <td th:text="${invasionHistory.passNum}"th:classappend="${invasionHistory.isDealed=='是'}? 'font_black': 'font_red'"></td>
+        <td th:text="${invasionHistory.blockNum}"th:classappend="${invasionHistory.isDealed=='是'}? 'font_black': 'font_red'"></td>
+        <td th:text="${invasionHistory.position}"th:classappend="${invasionHistory.isDealed=='是'}? 'font_black': 'font_red'"></td>
+        <td th:text="${invasionHistory.externalClass}"th:classappend="${invasionHistory.isDealed=='是'}? 'font_black': 'font_red'"></td>
+        <td th:text="${invasionHistory.isDealed}"th:classappend="${invasionHistory.isDealed=='是'}? 'font_black': 'font_red'"></td>
+        <td th:text="${invasionHistory.dealMan}"th:classappend="${invasionHistory.isDealed=='是'}? 'font_black': 'font_red'"></td>
+        <td th:text="${invasionHistory.dealTime}"th:classappend="${invasionHistory.isDealed=='是'}? 'font_black': 'font_red'"></td>
+        <td th:text="${invasionHistory.remarks}"th:classappend="${invasionHistory.isDealed=='是'}? 'font_black': 'font_red'"></td>
+        <td>
+            <button th:classappend="${invasionHistory.isDealed=='是'}? 'button_gray': (${invasionHistory.time==''}? 'button_gray': '')" type="button" class="layui-btn layui-btn-sm layui-btn-normal" style="height: 26px"><i class="layui-icon"></i> 修改</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div id="page">
+    第&nbsp;<i th:text="${currentPage+1}"></i>&nbsp;页，
+    共&nbsp;<i th:text="${totalPages}"></i>&nbsp;页，
+    每页&nbsp;<i th:text="${limitPage}"></i>&nbsp;条数据，
+    共&nbsp;<i th:text="${totalCount}"></i>&nbsp;条数据&nbsp;&nbsp;&nbsp;
+
+    <a th:href="@{/externalInvasion(page=0,totalPage=${totalPages})}">首页</a>&nbsp;
+    <a th:href="@{/externalInvasion(page=${currentPage-1},totalPage=${totalPages})}">上一页</a>&nbsp;
+    <a th:href="@{/externalInvasion(page=${currentPage+1},totalPage=${totalPages})}">下一页</a>&nbsp;
+    <a th:href="@{/externalInvasion(page=${totalPages-1},totalPage=${totalPages})}">末页</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+
+
+</body>
+</html>

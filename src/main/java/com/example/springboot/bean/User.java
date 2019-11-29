@@ -1,15 +1,18 @@
 package com.example.springboot.bean;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+@Data
 public class User {
 
   @Id
   @Column
-  private String id;
+  private long id;
   @Column
   private String username;
   @Column
@@ -26,11 +29,11 @@ public class User {
   private String remarks;
 
 
-  public String getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(long id) {
     this.id = id;
   }
 
@@ -70,11 +73,6 @@ public class User {
     this.phone = phone;
   }
 
-  public String toString(){
-    StringBuilder str=new StringBuilder();
-    str.append(id).append(username).append(password).append(sex).append(phone).append(email);
-    return str.toString();
-  }
 
   public String getEmail() {
     return email;
@@ -83,6 +81,8 @@ public class User {
   public void setEmail(String email) {
     this.email = email;
   }
+  
+
 
   public String getEmployer() {
     return employer;
@@ -92,6 +92,7 @@ public class User {
     this.employer = employer;
   }
 
+
   public String getRemarks() {
     return remarks;
   }
@@ -99,4 +100,5 @@ public class User {
   public void setRemarks(String remarks) {
     this.remarks = remarks;
   }
+
 }

@@ -1,54 +1,56 @@
 package com.example.springboot.utils;
 
-public class LayuiTableResultUtil<T> {
-    private T data;
-    private String msg;
-    private int code;
-    private Long count;
+public class LayuiTableResultUtil {
+    private Object data;
+    private String message;
+    private int status;
+    private int total;
 
+    public LayuiTableResultUtil() {
+    }
 
-    public LayuiTableResultUtil(int code,String msg, Long count, T data) {
-        this.msg = msg;
+    public LayuiTableResultUtil(int status,String msg, int total, Object data) {
+        this.message = msg;
         this.data = data;
-        this.code = code;
-        this.count = count;
+        this.status = status;
+        this.total = total;
     }
 
     @Override
     public String toString() {
-        return "LayuiTableResult [msg=" + msg + ", data=" + data + ", code=" + code + ", count=" + count + "]";
+        return "LayuiTableResult [msg=" + message + ", data=" + data + ", code=" + status + ", total=" + total + "]";
 
     }
 
     public String getMsg() {
-        return msg;
+        return message;
     }
 
     public void setMsg(String msg) {
-        this.msg = msg;
+        this.message = msg;
     }
 
-    public Long getCount() {
-        return count;
+    public int getCount() {
+        return total;
     }
 
-    public void setCount(Long count) {
-        this.count = count;
+    public void setCount(int total) {
+        this.total = total;
     }
 
-    public int getCode() {
-        return code;
+    public int getStatus() {
+        return status;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 }
