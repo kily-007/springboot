@@ -59,4 +59,10 @@ service:业务层，存放业务逻辑处理；不直接对数据库进行操作
 -------
 包括在线帮助、关于等功能。主要提供在线帮助文档供用户查看，提供关于信息使用者查询。
 
-     
+
+图例：
+![](https://github.com/kily-007/images/blob/master/1.png)
+![](https://github.com/kily-007/images/blob/master/2.png)
+![](https://github.com/kily-007/images/blob/master/3.png)
+![](https://github.com/kily-007/images/blob/master/4.png)
+
